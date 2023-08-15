@@ -6,18 +6,18 @@ on:
         - cron: "50 21 * * *"
 
 jobs:
-    comment:
+    collect-issues:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/github-script@v6
               id: all-issues
               with:
                   script: |
-                        const owner = context.repo.owner
+                        const owner = context.repo.owner;
                         const repoOpts = github.rest.repos.listForUser({
                             owner,
                         });
-                        const repos = await github.paginate(repoOpts)
+                        const repos = await github.paginate(repoOpts);
 
                         console.log(repos);
 
