@@ -18,27 +18,4 @@ jobs:
                             owner,
                         });
                         const repos = await github.paginate(repoOpts);
-
                         console.log(repos);
-
-                        # let issueOpts;
-                        # for (const repo of repos) {
-                        #     if (repo.private) { // check if repo is private
-                        #         continue
-                        #     }
-                        #     issueOpts = github.rest.issues.listForRepo({
-                        #         owner,
-                        #         repo
-                        #     })
-                        # }
-                        # const issues = await github.paginate(issueOpts)
-
-                        # for (const issue of issues) {
-                        #     if (issue.number === context.issue.number) {
-                        #         continue
-                        #     }
-
-                        #     if (issue.pull_request) {
-                        #         return // Creator is already a contributor.
-                        #     }
-                        # }
