@@ -1,9 +1,9 @@
 name: Scrape latest ISSUE data (daily)
 
-on:
-    pull_request:
-    schedule:
-        - cron: "50 21 * * *"
+on: [pull_request]
+    
+    # schedule:
+    #     - cron: "50 21 * * *"
 
 jobs:
     collect-issues:
