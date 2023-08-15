@@ -14,10 +14,9 @@ jobs:
               with:
                   script: |
                         const owner = context.repo.owner;
-                        console.log(owner);
                         const repoOpts = github.rest.repos.listForUser({
                             owner,
+                            "test",
                         });
-                        console.log(repoOpts);
                         const repos = await github.paginate(repoOpts);
                         console.log(repos);
