@@ -2,8 +2,8 @@ name: Scrape latest ISSUE data (daily)
 
 on:
     pull_request:
-    # schedule:
-    #     - cron: "50 21 * * *"
+    schedule:
+        - cron: "50 21 * * *"
 
 jobs:
     comment:
