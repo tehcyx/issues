@@ -1,0 +1,44 @@
+name: Scrape latest ISSUE data (daily)
+
+on:
+    pull_request:
+    schedule:
+        - cron: "50 21 * * *"
+
+jobs:
+    comment:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/github-script@v6
+              id: all-issues
+              with:
+                  script: |
+                        const owner = context.repo.owner
+                        const repoOpts = github.rest.repos.listForUser({
+                            owner,
+                        });
+                        const repos = await github.paginate(repoOpts)
+
+                        console.log(repos);
+
+                        # let issueOpts;
+                        # for (const repo of repos) {
+                        #     if (repo.private) { // check if repo is private
+                        #         continue
+                        #     }
+                        #     issueOpts = github.rest.issues.listForRepo({
+                        #         owner,
+                        #         repo
+                        #     })
+                        # }
+                        # const issues = await github.paginate(issueOpts)
+
+                        # for (const issue of issues) {
+                        #     if (issue.number === context.issue.number) {
+                        #         continue
+                        #     }
+
+                        #     if (issue.pull_request) {
+                        #         return // Creator is already a contributor.
+                        #     }
+                        # }
