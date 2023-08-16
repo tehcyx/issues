@@ -27,7 +27,6 @@ jobs:
               with:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
-                    let allIssues = [];
                     const repos = ${{steps.all-repos.outputs.result}};
                     for (const repo of repos) {
                         const issueResponse = await github.rest.issues.listForRepo({
