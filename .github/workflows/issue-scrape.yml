@@ -18,12 +18,12 @@ jobs:
                     const repos = await github.rest.repos.listForUser({
                         username: owner,
                     });
+                    console.log(repos);
                     return repos;
             - uses: actions/github-script@v6
               id: all-issues
               with:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
-                    console.log(${{steps.all-repos.outputs}});
                     const repos = ${{steps.all-repos.outputs.result}};
                     console.log(repos);
