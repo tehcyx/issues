@@ -20,11 +20,8 @@ jobs:
                     });
                     const filteredRepos = (repos) => repos
                                                         .filter((repo) => repo.has_issues)
-                                                        .map((repo) => {
-                                                            echo repo.name;
-                                                            return repo.name
-                                                        });
-                    console.log("repos" + filteredRepos);
+                                                        .map((repo) => repo.name);
+                    console.log(filteredRepos);
                     return filteredRepos;
             - uses: actions/github-script@v6
               id: all-issues
