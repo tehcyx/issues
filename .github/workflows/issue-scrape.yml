@@ -28,17 +28,6 @@ jobs:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
                     const repos = ${{steps.all-repos.outputs.result}};
-                    for (const repo of repos) {
+                    for (var repo of repos) {
                         console.log(repo);
-                        # const issueResponse = await github.rest.issues.listForRepo({
-                        #     owner,
-                        #     repo
-                        # });
-                        # for (const issue of issueResponse.data) {
-                        #     if (issue.pull_request) {
-                        #         continue
-                        #     }
-                        #     console.log(issue);
-                        #     # allIssues.push(issue.)
-                        # }
                     }
