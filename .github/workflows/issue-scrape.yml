@@ -13,10 +13,12 @@ jobs:
               id: all-repos
               with:
                 script: |
+                    const owner = context.repo.owner;
                     const repoOpts = github.rest.repos.listForUser({
-                        context.repo.owner,
+                        owner,
                     });
-                    return await github.paginate(repoOpts);
+                    const repos = await github.paginate(repoOpts);
+                    return repos;
             - uses: actions/github-script@v5
               id: all-issues
               with:
