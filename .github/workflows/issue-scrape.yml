@@ -15,17 +15,30 @@ jobs:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
                     const owner = context.repo.owner;
-                    const repos = await github.rest.repos.listForUser({
+                    const repoResponse = await github.rest.repos.listForUser({
                         username: owner,
                     });
-                    console.log(repos.data);
                     const filteredRepos = (r) => r
-                                                    .filter((repo) => repo.has_issues === true)
+                                                    .filter((repo) => repo.has_issues)
                                                     .map((repo) => repo.name);
-                    return filteredRepos(repos.data);
+                    return filteredRepos(repoResponse.data);
             - uses: actions/github-script@v6
               id: all-issues
               with:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
-                    console.log(${{steps.all-repos.outputs.result}});
+                    var allIssues: [string];
+                    const repos = ${{steps.all-repos.outputs.result}};
+                    for (const repo of repos) {
+                        const issueResponse = await github.rest.issues.listForRepo({
+                            owner,
+                            repo
+                        });
+                        for (const issue of issueResponse.data) {
+                            if (issue.pull_request) {
+                                continue
+                            }
+                            console.log(issue);
+                            # allIssues.push(issue.)
+                        }
+                    }
