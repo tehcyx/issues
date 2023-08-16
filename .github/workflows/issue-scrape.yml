@@ -19,7 +19,7 @@ jobs:
                         username: owner,
                     });
                     const filteredRepos = (repos) => repos
-                                                        .filter((repo) => repo.has_issues)
+                                                        .filter((repo) => repo.has_issues === true)
                                                         .map((repo) => repo.name);
                     console.log(filteredRepos);
                     return filteredRepos;
