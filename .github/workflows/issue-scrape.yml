@@ -42,7 +42,7 @@ jobs:
                                                         .map((is) => is.title);
                         const res = filterIssues(issues);
                         if (res.length > 0) {
-                            allIssues.concat(res);
+                            allIssues.push(res...);
                         }
                     }
                     console.log(allIssues);
