@@ -34,7 +34,6 @@ jobs:
                             owner,
                             repo
                         });
-                        new Date(str);
                         const oneDay = 24 * 60 * 60 * 1000;
                         const issues = issueResponse.data;
                         const filterIssues = (i) => i
