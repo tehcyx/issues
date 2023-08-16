@@ -9,13 +9,17 @@ jobs:
     collect-issues:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/github-script@v6
+            - uses: actions/github-script@v5
+              id: all-repos
+              with:
+                script: |
+                    const repoOpts = github.rest.repos.listForUser({
+                        context.repo.owner,
+                    });
+                    return await github.paginate(repoOpts);
+            - uses: actions/github-scripts@v5
               id: all-issues
               with:
-                  script: |
-                        const owner = context.repo.owner;
-                        const repoOpts = github.rest.repos.listForUser({
-                            owner,
-                        });
-                        const repos = await github.paginate(repoOpts);
-                        console.log(repos);
+                script: |
+                    const repos = steps.all-repos.outputs.result;
+                    console.log(repos);
