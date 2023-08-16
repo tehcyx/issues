@@ -29,5 +29,8 @@ jobs:
                 script: |
                     const repos = ${{steps.all-repos.outputs.result}};
                     for (var repo of repos) {
-                        console.log(repo);
+                        const issueResponse = await github.rest.issues.listForRepo({
+                            owner,
+                            repo
+                        });
                     }
