@@ -19,11 +19,11 @@ jobs:
                         username: owner,
                     });
                     const filteredRepos = (repos) => repos
-                                                        .filter((repo) => {
-                                                            echo repo;
-                                                            return repo.has_issues
-                                                        })
-                                                        .map((repo) => repo.name);
+                                                        .filter((repo) => repo.has_issues)
+                                                        .map((repo) => {
+                                                            echo repo.name;
+                                                            return repo.name
+                                                        });
                     console.log("repos" + filteredRepos);
                     return filteredRepos;
             - uses: actions/github-script@v6
