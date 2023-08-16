@@ -15,10 +15,9 @@ jobs:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
                     const owner = context.repo.owner;
-                    const repoOpts = github.rest.repos.listForUser({
+                    const repos = await github.rest.repos.listForUser({
                         username: owner,
                     });
-                    const repos = await github.paginate(repoOpts);
                     return repos;
             - uses: actions/github-script@v6
               id: all-issues
