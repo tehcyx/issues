@@ -18,7 +18,7 @@ jobs:
                     const repos = await github.rest.repos.listForUser({
                         username: owner,
                     });
-                    console.log(repos);
+                    console.log(repos.data);
                     const filteredRepos = (r) => r
                                                     .filter((repo) => repo.has_issues === true)
                                                     .map((repo) => repo.name);
