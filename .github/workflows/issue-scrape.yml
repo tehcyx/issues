@@ -41,7 +41,7 @@ jobs:
                                                         .filter((is) => is.comments === 0 && ((Date.now() - new Date(is.created_at)) < oneDay))
                                                         .map((is) => is.title);
                         const res = filterIssues(issues);
-                        if (res.length() > 0) {
+                        if (res.length > 0) {
                             allIssues.push();
                         }
                     }
