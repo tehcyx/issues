@@ -22,7 +22,7 @@ jobs:
                     const filteredRepos = (r) => r
                                                     .filter((repo) => repo.has_issues === true)
                                                     .map((repo) => repo.name);
-                    return filteredRepos(repos);
+                    return filteredRepos(repos.data);
             - uses: actions/github-script@v6
               id: all-issues
               with:
