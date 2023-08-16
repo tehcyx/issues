@@ -34,4 +34,11 @@ jobs:
                             owner,
                             repo
                         });
+                        const issues = issueResponse.data;
+                        for (var issue of issues) {
+                            if (issue.pull_request) {
+                                continue
+                            }
+                            console.log(issue);
+                        }
                     }
