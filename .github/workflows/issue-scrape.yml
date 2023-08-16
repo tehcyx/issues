@@ -9,17 +9,18 @@ jobs:
     collect-issues:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/github-script@v5
+            - uses: actions/github-script@v6
               id: all-repos
               with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
                     const owner = context.repo.owner;
                     const repoOpts = github.rest.repos.listForUser({
-                        owner,
+                        username: owner,
                     });
                     const repos = await github.paginate(repoOpts);
                     return repos;
-            - uses: actions/github-script@v5
+            - uses: actions/github-script@v6
               id: all-issues
               with:
                 script: |
