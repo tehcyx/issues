@@ -22,6 +22,8 @@ jobs:
             - uses: actions/github-script@v6
               id: all-issues
               with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
-                    const repos = steps.all-repos.outputs.result;
+                    console.log(${{steps.all-repos.outputs}});
+                    const repos = ${{steps.all-repos.outputs.result}};
                     console.log(repos);
