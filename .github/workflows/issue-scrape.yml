@@ -28,6 +28,7 @@ jobs:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 script: |
                     const repos = ${{steps.all-repos.outputs.result}};
+                    const owner = context.repo.owner;
                     for (var repo of repos) {
                         const issueResponse = await github.rest.issues.listForRepo({
                             owner,
