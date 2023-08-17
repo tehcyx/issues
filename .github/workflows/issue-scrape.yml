@@ -45,4 +45,11 @@ jobs:
                             allIssues.push(res);
                         }
                     }
-                    console.log(allIssues);
+                    return allIssues;
+            - uses: actions/github-script@v6
+              id: issue-action
+              with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                script: |
+                    const issues = ${{steps.all-issues.outputs.result}};
+                    console.log(issues);
