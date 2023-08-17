@@ -38,8 +38,8 @@ jobs:
                         const oneDay = 24 * 60 * 60 * 1000;
                         const issues = issueResponse.data;
                         const filterIssues = (i) => i
-                                                        .filter((is) => is.comments === 0 && ((Date.now() - new Date(is.created_at)) > oneDay))
-                                                        .map((is) => ({"title": is.title, "id": is.id}));
+                                                        .filter((is) => is.comments === 0 && ((Date.now() - new Date(is.created_at)) < oneDay))
+                                                        .map((is) => ({"title": is.title, "id": is.id, "url": is.url}));
                         const res = filterIssues(issues);
                         if (res.length > 0) {
                             allIssues.push(res);
