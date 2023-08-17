@@ -1,0 +1,55 @@
+name: Scrape latest ISSUE data (daily)
+
+on: [pull_request]
+    
+    # schedule:
+    #     - cron: "50 21 * * *"
+
+jobs:
+    collect-issues:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/github-script@v6
+              id: all-repos
+              with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                script: |
+                    const owner = context.repo.owner;
+                    const repoResponse = await github.rest.repos.listForUser({
+                        username: owner,
+                    });
+                    const filteredRepos = (r) => r
+                                                    .filter((repo) => repo.has_issues)
+                                                    .map((repo) => repo.name);
+                    return filteredRepos(repoResponse.data);
+            - uses: actions/github-script@v6
+              id: all-issues
+              with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                script: |
+                    const repos = ${{steps.all-repos.outputs.result}};
+                    const owner = context.repo.owner;
+                    let allIssues = [];
+                    for (var repo of repos) {
+                        const issueResponse = await github.rest.issues.listForRepo({
+                            owner,
+                            repo
+                        });
+                        const oneDay = 24 * 60 * 60 * 1000;
+                        const issues = issueResponse.data;
+                        const filterIssues = (i) => i
+                                                        .filter((is) => ((Date.now() - new Date(is.created_at)) < oneDay))
+                                                        .map((is) => ({"title": is.title, "id": is.id, "url": is.url}));
+                        const res = filterIssues(issues);
+                        if (res.length > 0) {
+                            allIssues.push(res);
+                        }
+                    }
+                    return allIssues;
+            - uses: actions/github-script@v6
+              id: issue-action
+              with:
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                script: |
+                    const issues = ${{steps.all-issues.outputs.result}};
+                    console.log(issues);
